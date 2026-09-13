@@ -1,3 +1,9 @@
+## [5.21.8](https://github.com/motormetrics/motormetrics/compare/v5.21.7...v5.21.8) (2026-09-13)
+
+### Performance Improvements
+
+* **web:** stop the charging map card waiting on the server ([d8ec269](https://github.com/motormetrics/motormetrics/commit/d8ec269861403c9f21297c8723cc40015d1ee67b))
+
 ## [5.21.7](https://github.com/motormetrics/motormetrics/compare/v5.21.6...v5.21.7) (2026-09-13)
 
 ### Performance Improvements
