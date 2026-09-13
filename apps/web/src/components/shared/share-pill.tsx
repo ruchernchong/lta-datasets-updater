@@ -3,12 +3,17 @@
 import type { Key } from "@heroui/react";
 
 import { Button, Dropdown, Header, Label, Separator } from "@heroui/react";
-import { SiTelegram, SiWhatsapp, SiX } from "@icons-pack/react-simple-icons";
 import { SITE_URL } from "@web/config";
-import { Check, Link2, Linkedin, Share2 } from "lucide-react";
+import { Check, Link2, Share2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import posthog from "posthog-js";
 import { useState } from "react";
+import {
+  FaLinkedin,
+  FaTelegram,
+  FaWhatsapp,
+  FaXTwitter,
+} from "react-icons/fa6";
 
 const COPY_KEY = "copy";
 
@@ -19,25 +24,25 @@ const TARGETS = [
   {
     build: (url: string, title: string) =>
       `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`,
-    icon: SiWhatsapp,
+    icon: FaWhatsapp,
     label: "WhatsApp",
   },
   {
     build: (url: string, title: string) =>
       `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-    icon: SiTelegram,
+    icon: FaTelegram,
     label: "Telegram",
   },
   {
     build: (url: string, title: string) =>
       `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-    icon: SiX,
+    icon: FaXTwitter,
     label: "X",
   },
   {
     build: (url: string) =>
       `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-    icon: Linkedin,
+    icon: FaLinkedin,
     label: "LinkedIn",
   },
 ] as const;

@@ -224,6 +224,9 @@ catalogs:
     react-dom:
       specifier: 19.2.6
       version: 19.2.6
+    react-icons:
+      specifier: 5.7.0
+      version: 5.7.0
     sonner:
       specifier: 2.0.7
       version: 2.0.7
@@ -405,9 +408,6 @@ importers:
       '@heroui/styles':
         specifier: 'catalog:'
         version: 3.2.4(tailwind-merge@3.6.0)(tailwindcss@4.3.0)
-      '@icons-pack/react-simple-icons':
-        specifier: 13.13.0
-        version: 13.13.0(react@19.2.6)
       '@motormetrics/ai':
         specifier: workspace:*
         version: link:../../packages/ai
@@ -525,6 +525,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.2.6(react@19.2.6)
+      react-icons:
+        specifier: 'catalog:'
+        version: 5.7.0(react@19.2.6)
       react-resizable-panels:
         specifier: 4.11.1
         version: 4.11.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -2256,12 +2259,6 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
-
-  '@icons-pack/react-simple-icons@13.13.0':
-    resolution: {integrity: sha512-B5HhQMIpcSH4z8IZ8HFhD59CboHceKYMpPC9kAwGyKntvPdyJJv26DLu4Z1wAjcCLyrJhf11tMhiQGom9Rxb9g==}
-    engines: {node: '>=24', pnpm: '>=10'}
-    peerDependencies:
-      react: ^16.13 || ^17 || ^18 || ^19
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -8352,6 +8349,11 @@ packages:
     peerDependencies:
       react: ^19.2.6
 
+  react-icons@5.7.0:
+    resolution: {integrity: sha512-LBLy340Rzqy6+/yVhZKT3B/QpP1BZaesGqasf09HPOBzRarcDIFH0WwXlXQfE7q7ipxK4MSiC5DIBWURCny6fw==}
+    peerDependencies:
+      react: '*'
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -11210,10 +11212,6 @@ snapshots:
   '@hono/node-server@1.19.17(hono@4.13.7)':
     dependencies:
       hono: 4.13.7
-
-  '@icons-pack/react-simple-icons@13.13.0(react@19.2.6)':
-    dependencies:
-      react: 19.2.6
 
   '@img/colour@1.1.0':
     optional: true
@@ -17528,6 +17526,10 @@ snapshots:
     dependencies:
       react: 19.2.6
       scheduler: 0.27.0
+
+  react-icons@5.7.0(react@19.2.6):
+    dependencies:
+      react: 19.2.6
 
   react-is@16.13.1: {}
 
