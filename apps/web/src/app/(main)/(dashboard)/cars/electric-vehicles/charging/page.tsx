@@ -23,11 +23,7 @@ import {
   generateBreadcrumbSchema,
   generateDatasetSchema,
 } from "@web/lib/metadata";
-import {
-  getEvChargingSnapshot,
-  type PriceOrder,
-  type UtilisationOrder,
-} from "@web/queries/ev-charging";
+import { getEvChargingSnapshot } from "@web/queries/ev-charging";
 import { PlugZap } from "lucide-react";
 import type { Metadata } from "next";
 import type { SearchParams } from "nuqs/server";
@@ -185,22 +181,6 @@ async function LiveStatusCard({ searchParams }: PageProps) {
   return <LiveStatus district={district} />;
 }
 
-async function PriceListCard({
-  order,
-  searchParams,
-}: PageProps & { order: PriceOrder }) {
-  const { district, power } = await loadSearchParams(searchParams);
-  return <PriceList district={district} order={order} power={power} />;
-}
-
-async function UtilisationListCard({
-  order,
-  searchParams,
-}: PageProps & { order: UtilisationOrder }) {
-  const { district } = await loadSearchParams(searchParams);
-  return <UtilisationList district={district} order={order} />;
-}
-
 /**
  * The card grid. It awaits nothing itself: aggregating the cards' data here
  * would make the slowest read gate every card, so each card resolves search
@@ -236,16 +216,12 @@ function ChargingBento({ searchParams }: PageProps) {
       <AnimatedGrid className="flex flex-col gap-6">
         <AnimatedSection>
           <SectionErrorBoundary title="Cheapest chargers unavailable">
-            <Suspense fallback={<CardSkeleton className="h-[520px]" />}>
-              <PriceListCard order="cheapest" searchParams={searchParams} />
-            </Suspense>
+            <PriceList order="cheapest" searchParams={searchParams} />
           </SectionErrorBoundary>
         </AnimatedSection>
         <AnimatedSection>
           <SectionErrorBoundary title="Most expensive chargers unavailable">
-            <Suspense fallback={<CardSkeleton className="h-[520px]" />}>
-              <PriceListCard order="priciest" searchParams={searchParams} />
-            </Suspense>
+            <PriceList order="priciest" searchParams={searchParams} />
           </SectionErrorBoundary>
         </AnimatedSection>
       </AnimatedGrid>
@@ -253,22 +229,12 @@ function ChargingBento({ searchParams }: PageProps) {
       <AnimatedGrid className="flex flex-col gap-6">
         <AnimatedSection>
           <SectionErrorBoundary title="Busiest locations unavailable">
-            <Suspense fallback={<CardSkeleton className="h-[520px]" />}>
-              <UtilisationListCard
-                order="busiest"
-                searchParams={searchParams}
-              />
-            </Suspense>
+            <UtilisationList order="busiest" searchParams={searchParams} />
           </SectionErrorBoundary>
         </AnimatedSection>
         <AnimatedSection>
           <SectionErrorBoundary title="Quietest locations unavailable">
-            <Suspense fallback={<CardSkeleton className="h-[520px]" />}>
-              <UtilisationListCard
-                order="quietest"
-                searchParams={searchParams}
-              />
-            </Suspense>
+            <UtilisationList order="quietest" searchParams={searchParams} />
           </SectionErrorBoundary>
         </AnimatedSection>
       </AnimatedGrid>
