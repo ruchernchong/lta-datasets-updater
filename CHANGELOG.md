@@ -1,3 +1,9 @@
+## [5.21.6](https://github.com/motormetrics/motormetrics/compare/v5.21.5...v5.21.6) (2026-09-13)
+
+### Performance Improvements
+
+* **web:** stream ev charging cards independently ([45e47de](https://github.com/motormetrics/motormetrics/commit/45e47de63355372877e10c166c81eab77f372534))
+
 ## [5.21.5](https://github.com/motormetrics/motormetrics/compare/v5.21.4...v5.21.5) (2026-09-12)
 
 ### Bug Fixes
