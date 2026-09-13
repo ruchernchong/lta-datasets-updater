@@ -1,5 +1,9 @@
 import { CoeResults } from "@web/lib/og/cards/coe-results";
-import { OG_CONTENT_TYPE, TWITTER_SIZE } from "@web/lib/og/config";
+import {
+  OG_CACHE_HEADERS,
+  OG_CONTENT_TYPE,
+  TWITTER_SIZE,
+} from "@web/lib/og/config";
 import { loadCoeResults } from "@web/lib/og/data";
 import { getOGFonts } from "@web/lib/og/fonts";
 import { ImageResponse } from "next/og";
@@ -21,5 +25,6 @@ export default async function Image() {
   return new ImageResponse(<CoeResults height={size.height} {...data} />, {
     ...size,
     fonts,
+    headers: OG_CACHE_HEADERS,
   });
 }

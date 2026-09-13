@@ -1,6 +1,10 @@
 import { formatDate } from "@web/app/(main)/(site)/blog/components/post/utils";
 import { Article } from "@web/lib/og/cards/article";
-import { OG_CONTENT_TYPE, TWITTER_SIZE } from "@web/lib/og/config";
+import {
+  OG_CACHE_HEADERS,
+  OG_CONTENT_TYPE,
+  TWITTER_SIZE,
+} from "@web/lib/og/config";
 import { getOGFonts } from "@web/lib/og/fonts";
 import { ImageResponse } from "next/og";
 import { connection } from "next/server";
@@ -46,6 +50,7 @@ export default async function Image({ params }: ImageProps) {
     {
       ...size,
       fonts,
+      headers: OG_CACHE_HEADERS,
     },
   );
 }

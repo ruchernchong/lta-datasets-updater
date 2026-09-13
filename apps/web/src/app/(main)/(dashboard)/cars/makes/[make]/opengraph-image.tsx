@@ -1,6 +1,6 @@
 import { slugify } from "@motormetrics/utils/slugify";
 import { Make } from "@web/lib/og/cards/make";
-import { OG_CONTENT_TYPE, OG_SIZE } from "@web/lib/og/config";
+import { OG_CACHE_HEADERS, OG_CONTENT_TYPE, OG_SIZE } from "@web/lib/og/config";
 import { loadMake } from "@web/lib/og/data";
 import { getOGFonts } from "@web/lib/og/fonts";
 import { getDistinctMakes } from "@web/queries/cars";
@@ -35,5 +35,6 @@ export default async function Image({ params }: ImageProps) {
   return new ImageResponse(<Make height={size.height} {...data} />, {
     ...size,
     fonts,
+    headers: OG_CACHE_HEADERS,
   });
 }
