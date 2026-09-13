@@ -2,12 +2,17 @@
 
 import { Button, Tooltip } from "@heroui/react";
 import { buttonVariants } from "@heroui/styles";
-import { SiTelegram, SiWhatsapp, SiX } from "@icons-pack/react-simple-icons";
 import { SITE_URL } from "@web/config";
-import { Check, Copy, Linkedin, Share2 } from "lucide-react";
+import { Check, Copy, Share2 } from "lucide-react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { useState } from "react";
+import {
+  FaLinkedin,
+  FaTelegram,
+  FaWhatsapp,
+  FaXTwitter,
+} from "react-icons/fa6";
 
 interface ShareButtonsProps {
   url: string;
@@ -92,7 +97,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Linkedin className="size-4" />
+            <FaLinkedin className="size-4" />
           </Link>
           <Tooltip.Content>Share on LinkedIn</Tooltip.Content>
         </Tooltip>
@@ -109,7 +114,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <SiTelegram className="size-4" />
+            <FaTelegram className="size-4" />
           </Link>
           <Tooltip.Content>Share on Telegram</Tooltip.Content>
         </Tooltip>
@@ -126,7 +131,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <SiWhatsapp className="size-4" />
+            <FaWhatsapp className="size-4" />
           </Link>
           <Tooltip.Content>Share on WhatsApp</Tooltip.Content>
         </Tooltip>
@@ -143,7 +148,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <SiX className="size-4" />
+            <FaXTwitter className="size-4" />
           </Link>
           <Tooltip.Content>Share on X</Tooltip.Content>
         </Tooltip>

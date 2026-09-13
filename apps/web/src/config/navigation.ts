@@ -1,11 +1,3 @@
-import {
-  type IconType,
-  SiGithub,
-  SiInstagram,
-  SiTelegram,
-  // SiThreads,
-  SiX,
-} from "@icons-pack/react-simple-icons";
 import { sortByName } from "@motormetrics/utils/sorting";
 import {
   BarChart3,
@@ -25,6 +17,14 @@ import {
   Zap,
 } from "lucide-react";
 import type { Route } from "next";
+import type { IconType } from "react-icons";
+import {
+  FaGithub,
+  FaInstagram,
+  FaTelegram,
+  // FaThreads,
+  FaXTwitter,
+} from "react-icons/fa6";
 
 export interface NavigationItem {
   title: string;
@@ -60,27 +60,27 @@ const socialMedia: SocialMedia[] = [
   {
     title: "Instagram",
     url: "/instagram",
-    icon: SiInstagram,
+    icon: FaInstagram,
   },
   // {
   //   title: "Threads",
   //   url: "/threads",
-  //   icon: SiThreads,
+  //   icon: FaThreads,
   // },
   {
     title: "Telegram",
     url: "/telegram",
-    icon: SiTelegram,
+    icon: FaTelegram,
   },
   {
     title: "GitHub",
     url: "/github",
-    icon: SiGithub,
+    icon: FaGithub,
   },
   {
     title: "X",
     url: "/x",
-    icon: SiX,
+    icon: FaXTwitter,
   },
 ];
 
