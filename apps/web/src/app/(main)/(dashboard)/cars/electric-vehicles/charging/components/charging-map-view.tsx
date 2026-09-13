@@ -396,7 +396,7 @@ export function ChargingMapView() {
           return;
         }
         console.error("Failed to load charging map sites:", error);
-        // An empty list leaves the map usable, just without pins.
+        // An empty list shows the no-locations message in the map area.
         setLoadedSites(NO_SITES);
       }
     };
@@ -505,6 +505,14 @@ export function ChargingMapView() {
           <div className="absolute inset-0 z-10 flex items-center justify-center rounded-3xl bg-surface/60 backdrop-blur-xs">
             <Typography.Paragraph color="muted" size="sm">
               Loading chargers…
+            </Typography.Paragraph>
+          </div>
+        ) : null}
+
+        {loadedSites?.length === 0 ? (
+          <div className="absolute inset-0 z-10 flex items-center justify-center rounded-3xl bg-surface/60 backdrop-blur-xs">
+            <Typography.Paragraph color="muted" size="sm">
+              No charger locations to show right now.
             </Typography.Paragraph>
           </div>
         ) : null}

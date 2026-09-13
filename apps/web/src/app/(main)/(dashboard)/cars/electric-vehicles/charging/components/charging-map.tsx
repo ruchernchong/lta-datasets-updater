@@ -1,27 +1,21 @@
 import { MAP_ANCHOR_ID } from "@web/app/(main)/(dashboard)/cars/electric-vehicles/charging/search-params";
 import { SurfaceCard } from "@web/components/shared/bento";
-import { getEvChargingMapSites } from "@web/queries/ev-charging";
 import { ChargingMapView } from "./charging-map-view";
 
 /**
  * Every public charging site on a map, coloured by live availability.
  *
- * Reads no search params: the district filter is applied on the client, so
- * this card prerenders into the static shell and costs nothing per request.
+ * It awaits nothing on the server. `ChargingMapView` reads the district and
+ * selected site from the URL with nuqs, so this boundary renders at request
+ * time rather than in the static shell; awaiting the site list here made the
+ * whole card wait for the snapshot behind it, which on a cold instance is a
+ * ~5 MB download before a single pixel of the card could stream.
  *
- * The site list is deliberately not passed down. `ChargingMapView` fetches it
- * from `/api/ev-charging/map-sites`, which keeps 2,755 sites out of the RSC
- * payload of every visit — the page serves both a prerender stream and a
- * resume stream, so anything in the tree is paid for twice. The cached query
- * is still awaited here, but only to decide whether the card has anything to
- * show; the array itself never crosses the server/client boundary.
+ * The site list is fetched on the client from `/api/ev-charging/map-sites`,
+ * which also keeps 2,755 sites out of the RSC payload. An empty or failed
+ * fetch is handled in the view, which shows a message in the map area.
  */
-export async function ChargingMap() {
-  const sites = await getEvChargingMapSites();
-  if (sites.length === 0) {
-    return null;
-  }
-
+export function ChargingMap() {
   return (
     <div className="scroll-mt-6" id={MAP_ANCHOR_ID}>
       <SurfaceCard className="gap-4 p-7">
