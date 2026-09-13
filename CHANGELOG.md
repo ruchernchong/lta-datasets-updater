@@ -1,3 +1,9 @@
+## [5.21.9](https://github.com/motormetrics/motormetrics/compare/v5.21.8...v5.21.9) (2026-09-13)
+
+### Performance Improvements
+
+* **web:** prerender charging list card headers into the shell ([767519e](https://github.com/motormetrics/motormetrics/commit/767519e3e60d1defb940669ad558c2bddebd6482))
+
 ## [5.21.8](https://github.com/motormetrics/motormetrics/compare/v5.21.7...v5.21.8) (2026-09-13)
 
 ### Performance Improvements
