@@ -1,3 +1,9 @@
+## [5.21.7](https://github.com/motormetrics/motormetrics/compare/v5.21.6...v5.21.7) (2026-09-13)
+
+### Performance Improvements
+
+* **web:** cache request-time ev charging queries remotely ([258ce46](https://github.com/motormetrics/motormetrics/commit/258ce462587d7fab99d6ed523f6f0d087eed5343))
+
 ## [5.21.6](https://github.com/motormetrics/motormetrics/compare/v5.21.5...v5.21.6) (2026-09-13)
 
 ### Performance Improvements
