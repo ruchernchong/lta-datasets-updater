@@ -1,3 +1,9 @@
+## [5.21.10](https://github.com/motormetrics/motormetrics/compare/v5.21.9...v5.21.10) (2026-09-13)
+
+### Bug Fixes
+
+* **web:** restore favicon.ico with the new mark ([c02276f](https://github.com/motormetrics/motormetrics/commit/c02276f2d9525b04ed660d0063de3103f46a28af))
+
 ## [5.21.9](https://github.com/motormetrics/motormetrics/compare/v5.21.8...v5.21.9) (2026-09-13)
 
 ### Performance Improvements
