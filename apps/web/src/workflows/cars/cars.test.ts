@@ -74,10 +74,6 @@ vi.mock("@web/workflows/shared", async (importOriginal) => ({
   revalidatePostsCache: vi.fn(),
 }));
 
-vi.mock("@web/lib/redis/makes", () => ({
-  populateMakesSortedSet: vi.fn().mockResolvedValue(0),
-}));
-
 import { generateHeroImage } from "@motormetrics/ai/generate-hero-image";
 import { generateBlogContent } from "@motormetrics/ai/generate-post";
 import { getCarsAggregatedByMonth } from "@motormetrics/ai/queries";

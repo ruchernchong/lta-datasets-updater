@@ -1,5 +1,3 @@
-import { redis } from "@motormetrics/utils/redis";
-import { MAKES_SORTED_SET_KEY } from "@web/lib/redis/makes";
 import { getDistinctMakes } from "@web/queries/cars";
 import type { Make } from "@web/types";
 import { cacheLife, cacheTag } from "next/cache";
@@ -20,13 +18,8 @@ export async function getGroupedMakes(): Promise<GroupedMakesResult> {
   cacheLife("max");
   cacheTag("cars:makes");
 
-  let sortedMakes = await redis.zrange<Make[]>(MAKES_SORTED_SET_KEY, 0, -1);
-
-  // Fallback to database when Redis sorted set is not populated
-  if (!sortedMakes || sortedMakes.length === 0) {
-    const dbMakes = await getDistinctMakes();
-    sortedMakes = dbMakes.map((item) => item.make);
-  }
+  const dbMakes = await getDistinctMakes();
+  const sortedMakes = dbMakes.map((item) => item.make);
 
   if (sortedMakes.length === 0) {
     return { sortedMakes: [], groupedMakes: {}, letters: ["ALL"] };

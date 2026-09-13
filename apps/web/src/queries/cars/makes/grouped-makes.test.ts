@@ -1,23 +1,12 @@
 import { vi } from "vitest";
 
-const { zrangeMock, getDistinctMakesMock } = vi.hoisted(() => ({
-  zrangeMock: vi.fn(),
+const { getDistinctMakesMock } = vi.hoisted(() => ({
   getDistinctMakesMock: vi.fn(),
-}));
-
-vi.mock("@motormetrics/utils/redis", () => ({
-  redis: {
-    zrange: zrangeMock,
-  },
 }));
 
 vi.mock("next/cache", () => ({
   cacheLife: vi.fn(),
   cacheTag: vi.fn(),
-}));
-
-vi.mock("@web/lib/redis/makes", () => ({
-  MAKES_SORTED_SET_KEY: "makes:alpha",
 }));
 
 vi.mock("@web/queries/cars", () => ({
@@ -26,14 +15,16 @@ vi.mock("@web/queries/cars", () => ({
 
 import { getGroupedMakes } from "./grouped-makes";
 
+const mockMakes = (makes: string[]) =>
+  getDistinctMakesMock.mockResolvedValue(makes.map((make) => ({ make })));
+
 describe("getGroupedMakes", () => {
   beforeEach(() => {
-    zrangeMock.mockReset();
     getDistinctMakesMock.mockReset();
   });
 
   it("should return sorted makes grouped by first letter", async () => {
-    zrangeMock.mockResolvedValue([
+    mockMakes([
       "123MOTORS",
       "AUDI",
       "BMW",
@@ -64,7 +55,7 @@ describe("getGroupedMakes", () => {
   });
 
   it("should create letters array with ALL first and # last", async () => {
-    zrangeMock.mockResolvedValue([
+    mockMakes([
       "123MOTORS",
       "AUDI",
       "BMW",
@@ -78,31 +69,8 @@ describe("getGroupedMakes", () => {
     expect(result.letters).toEqual(["ALL", "A", "B", "M", "P", "V", "#"]);
   });
 
-  it("should fallback to database when Redis sorted set is empty", async () => {
-    zrangeMock.mockResolvedValue([]);
-    getDistinctMakesMock.mockResolvedValue([{ make: "AUDI" }, { make: "BMW" }]);
-
-    const result = await getGroupedMakes();
-
-    expect(getDistinctMakesMock).toHaveBeenCalled();
-    expect(result.sortedMakes).toEqual(["AUDI", "BMW"]);
-    expect(result.groupedMakes).toEqual({ A: ["AUDI"], B: ["BMW"] });
-    expect(result.letters).toEqual(["ALL", "A", "B"]);
-  });
-
-  it("should fallback to database when Redis returns null", async () => {
-    zrangeMock.mockResolvedValue(null);
-    getDistinctMakesMock.mockResolvedValue([{ make: "TOYOTA" }]);
-
-    const result = await getGroupedMakes();
-
-    expect(getDistinctMakesMock).toHaveBeenCalled();
-    expect(result.sortedMakes).toEqual(["TOYOTA"]);
-  });
-
-  it("should return empty when both Redis and database have no data", async () => {
-    zrangeMock.mockResolvedValue([]);
-    getDistinctMakesMock.mockResolvedValue([]);
+  it("should return empty when the database has no makes", async () => {
+    mockMakes([]);
 
     const result = await getGroupedMakes();
 
@@ -112,7 +80,7 @@ describe("getGroupedMakes", () => {
   });
 
   it("should handle makes starting with numbers", async () => {
-    zrangeMock.mockResolvedValue(["3M", "7-ELEVEN", "BMW"]);
+    mockMakes(["3M", "7-ELEVEN", "BMW"]);
 
     const result = await getGroupedMakes();
 
@@ -121,7 +89,7 @@ describe("getGroupedMakes", () => {
   });
 
   it("should sort # last when a number make is found after a letter make", async () => {
-    zrangeMock.mockResolvedValue(["BMW", "3M", "AUDI"]);
+    mockMakes(["BMW", "3M", "AUDI"]);
 
     const result = await getGroupedMakes();
 
@@ -129,7 +97,7 @@ describe("getGroupedMakes", () => {
   });
 
   it("should handle whitespace in make names", async () => {
-    zrangeMock.mockResolvedValue([" AUDI ", "BMW", "  MERCEDES BENZ  "]);
+    mockMakes([" AUDI ", "BMW", "  MERCEDES BENZ  "]);
 
     const result = await getGroupedMakes();
 
