@@ -30,6 +30,9 @@ export interface EvChargingPricedLocation extends EvChargingLocation {
  *
  * Only connectors of the requested rating count, so a site's AC price does
  * not stand in for its DC one. Ties break alphabetically by station name.
+ *
+ * It takes the district and power rating, so it runs at request time and is
+ * cached remotely: an in-memory entry would miss on every fresh instance.
  */
 export async function getEvChargingPriceRankings({
   powerRating,
@@ -37,7 +40,7 @@ export async function getEvChargingPriceRankings({
   district,
   limit = 10,
 }: PriceRankingOptions): Promise<EvChargingPricedLocation[]> {
-  "use cache";
+  "use cache: remote";
   cacheLife("max");
   cacheTag(EV_CHARGING_LIVE_CACHE_TAG);
 

@@ -43,6 +43,9 @@ const MIN_SAMPLES = 24;
  *
  * Unavailable connectors are left out of the denominator so a site with a
  * broken charger is not reported as quiet.
+ *
+ * It takes the district, so it runs at request time and is cached remotely: an
+ * in-memory entry would miss on every fresh instance.
  */
 export async function getEvChargingLocationUtilisation({
   order,
@@ -50,7 +53,7 @@ export async function getEvChargingLocationUtilisation({
   limit = 10,
   days = 7,
 }: LocationUtilisationOptions): Promise<EvChargingLocationUtilisation[]> {
-  "use cache";
+  "use cache: remote";
   cacheLife("max");
   cacheTag(EV_CHARGING_LIVE_CACHE_TAG);
 

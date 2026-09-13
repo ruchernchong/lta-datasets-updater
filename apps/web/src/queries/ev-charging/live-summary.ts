@@ -13,11 +13,16 @@ export interface EvChargingLiveSummary {
   observedAt: string | null;
 }
 
-/** Connector state at the latest batch, island-wide or for one district. */
+/**
+ * Connector state at the latest batch, island-wide or for one district.
+ *
+ * It takes the district, so it runs at request time and is cached remotely: an
+ * in-memory entry would miss on every fresh instance.
+ */
 export async function getEvChargingLiveSummary(
   district?: string,
 ): Promise<EvChargingLiveSummary> {
-  "use cache";
+  "use cache: remote";
   cacheLife("max");
   cacheTag(EV_CHARGING_LIVE_CACHE_TAG);
 
