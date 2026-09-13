@@ -3,7 +3,6 @@ import { getCarsAggregatedByMonth } from "@motormetrics/ai/queries";
 import { redis } from "@motormetrics/utils/redis";
 import { tokeniser } from "@motormetrics/utils/tokeniser";
 import { getCarsMonthlyRevalidationTags } from "@web/lib/cache-tags";
-import { populateMakesSortedSet } from "@web/lib/redis/makes";
 import type { UpdaterResult } from "@web/lib/updater";
 import { getCarsLatestMonth } from "@web/queries/cars/latest-month";
 import { getExistingPostByMonth } from "@web/queries/posts";
@@ -51,10 +50,6 @@ export async function carsWorkflow(
       message: "No car records processed. Skipped publishing to social media.",
     };
   }
-
-  await emitEvent({ type: "step:start", step: "syncMakesSortedSet" });
-  await syncMakesSortedSet();
-  await emitEvent({ type: "step:complete", step: "syncMakesSortedSet" });
 
   const month = payload?.month ?? (await getCarsLatestRegistrationMonth());
   if (!month) {
@@ -126,11 +121,6 @@ async function processCarsData(): Promise<UpdaterResult> {
   }
 
   return result;
-}
-
-async function syncMakesSortedSet(): Promise<void> {
-  "use step";
-  await populateMakesSortedSet();
 }
 
 async function getCarsLatestRegistrationMonth(): Promise<string | null> {
