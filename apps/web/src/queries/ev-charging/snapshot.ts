@@ -28,6 +28,11 @@ const EMPTY: EvChargingSnapshot = { observedAt: null, records: [] };
  * earlier one-minute profile burned the Hobby ISR-write and CPU quotas.
  * Without an account key the snapshot is empty and the pages show their
  * empty state.
+ *
+ * It stays on plain in-memory `"use cache"`: serialised it is about 5 MB, over
+ * the Vercel Runtime Cache 2 MB item limit, so it cannot be cached remotely.
+ * The small request-time queries built on it use `"use cache: remote"`
+ * instead, so a hit on those skips this download entirely.
  */
 export async function getEvChargingSnapshot(): Promise<EvChargingSnapshot> {
   "use cache";
