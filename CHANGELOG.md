@@ -1,3 +1,9 @@
+## [5.21.11](https://github.com/motormetrics/motormetrics/compare/v5.21.10...v5.21.11) (2026-09-14)
+
+### Performance Improvements
+
+* **web:** cache share images at the CDN ([b9510ba](https://github.com/motormetrics/motormetrics/commit/b9510ba4393b25e215f5373ba95525004c2c8036))
+
 ## [5.21.10](https://github.com/motormetrics/motormetrics/compare/v5.21.9...v5.21.10) (2026-09-13)
 
 ### Bug Fixes
